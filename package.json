@@ -1,0 +1,39 @@
+{
+  "name": "messaging-app-be-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma-migrate-dev": "docker exec messaging-app-BE npx prisma migrate dev"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "~4.16.1",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuonicosII/messaging-app-BE-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BuonicosII/messaging-app-BE-/issues"
+  },
+  "homepage": "https://github.com/BuonicosII/messaging-app-BE-#readme"
+}
