@@ -2,8 +2,7 @@ import "dotenv/config.js";
 import passport from "passport";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { Strategy as LocalStrategy } from "passport-local";
-import { PrismaClient } from "@prisma/client";
-import { EstractJwt } from "passport-jwt";
+import { PrismaClient } from "./generated/prisma/client.ts";
 import bcpkg from "bcryptjs";
 const { compare } = bcpkg;
 const prisma = new PrismaClient();
@@ -46,6 +45,7 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Invalid token" });
       }
+      return done(null, user);
     } catch (err) {
       return done(err);
     }
