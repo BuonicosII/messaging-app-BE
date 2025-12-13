@@ -9,6 +9,7 @@ import {
   create_conversation_one_to_one_post,
   get_user_conversations,
 } from "../controllers/conversationController.js";
+import { create_message_post } from "../controllers/messageController.js";
 const prisma = new PrismaClient();
 
 const router = Router();
@@ -22,5 +23,7 @@ router.post(
   create_conversation_one_to_one_post
 );
 router.get("/conversations/get_user_conversations", get_user_conversations);
+
+router.post("/messages/create", create_message_post);
 
 export default router;

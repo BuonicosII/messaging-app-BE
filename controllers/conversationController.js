@@ -8,7 +8,7 @@ export const create_conversation_one_to_one_post = [
   passport.authenticate("jwt", { session: false }),
   asyncHandler(async (req, res, next) => {
     try {
-      const oldConversation = await prisma.conversation.findMany({
+      const oldConversation = await prisma.conversation.findFirst({
         where: {
           AND: [
             {
