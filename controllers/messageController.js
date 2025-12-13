@@ -6,7 +6,17 @@ const prisma = new PrismaClient();
 
 export const create_message_post = [
   passport.authenticate("jwt", { session: false }),
-  //body
+  body("content")
+    .not()
+    .isEmpty()
+    .withMessage("Content required")
+    .isString()
+    .withMessage("Content must be a string"),
+  body("conversation_id")
+    .isEmpty()
+    .withMessage("conversation_id required")
+    .isString()
+    .withMessage("conversation_id must be a string"),
   asyncHandler(async (req, res, next) => {
     try {
       const message = await prisma.message.create({
