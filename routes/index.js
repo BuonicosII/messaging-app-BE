@@ -12,6 +12,7 @@ import {
 } from "../controllers/conversationController.js";
 import {
   create_message_post,
+  delete_message,
   update_message_put,
 } from "../controllers/messageController.js";
 const prisma = new PrismaClient();
@@ -31,5 +32,6 @@ router.get("/conversations/get_conversation", get_conversation_with_messages);
 
 router.post("/messages/create", create_message_post);
 router.put("/messages/update", update_message_put);
+router.delete("/messages/delete", delete_message);
 
 export default router;

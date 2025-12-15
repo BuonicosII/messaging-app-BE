@@ -104,3 +104,43 @@ export const update_message_put = [
     }
   }),
 ];
+
+export const delete_message = [
+  passport.authenticate("jwt", { session: false }),
+  body("message_id")
+    .trim()
+    .notEmpty()
+    .withMessage("message_id requried")
+    .isString()
+    .withMessage("message_id must be a string")
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(200).json(errors.array());
+    } else {
+      try {
+        const oldMessage = await prisma.message.findUnique({
+          where: {
+            id: req.body.message_id,
+          },
+        });
+
+        if (!oldMessage) {
+          res.status(404).json({ msg: "Message not found" });
+        } else if (oldMessage.userId !== req.user.id) {
+          res.status(403).json({ msg: "User does not match message author" });
+        } else {
+          const deletedMessage = await prisma.message.delete({
+            where: {
+              id: req.body.message_id,
+            },
+          });
+          res.status(200).json(deletedMessage);
+        }
+      } catch (err) {
+        next(err);
+      }
+    }
+  }),
+];
