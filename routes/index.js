@@ -7,6 +7,7 @@ import {
 } from "../controllers/userController.js";
 import {
   create_conversation_one_to_one_post,
+  create_conversation_one_to_many_post,
   get_conversation_with_messages,
   get_user_conversations,
 } from "../controllers/conversationController.js";
@@ -26,6 +27,10 @@ router.post("/users/login", login_post);
 router.post(
   "/conversations/create_conversation_one_to_one_post",
   create_conversation_one_to_one_post
+);
+router.post(
+  "/conversations/create_conversation_one_to_many_post",
+  create_conversation_one_to_many_post
 );
 router.get("/conversations/get_user_conversations", get_user_conversations);
 router.get("/conversations/get_conversation", get_conversation_with_messages);

@@ -7,18 +7,18 @@ const prisma = new PrismaClient();
 export const create_message_post = [
   passport.authenticate("jwt", { session: false }),
   body("content")
-    .trim()
     .notEmpty()
     .withMessage("Content required")
     .isString()
     .withMessage("Content must be a string")
+    .trim()
     .escape(),
   body("conversation_id")
-    .trim()
     .notEmpty()
     .withMessage("conversation_id required")
     .isString()
     .withMessage("conversation_id must be a string")
+    .trim()
     .escape(),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -54,18 +54,18 @@ export const create_message_post = [
 export const update_message_put = [
   passport.authenticate("jwt", { session: false }),
   body("content")
-    .trim()
     .notEmpty()
     .withMessage("Content required")
     .isString()
     .withMessage("Content must be a string")
+    .trim()
     .escape(),
   body("message_id")
-    .trim()
     .notEmpty()
     .withMessage("message_id requried")
     .isString()
     .withMessage("message_id must be a string")
+    .trim()
     .escape(),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -108,11 +108,11 @@ export const update_message_put = [
 export const delete_message = [
   passport.authenticate("jwt", { session: false }),
   body("message_id")
-    .trim()
     .notEmpty()
     .withMessage("message_id requried")
     .isString()
     .withMessage("message_id must be a string")
+    .trim()
     .escape(),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
