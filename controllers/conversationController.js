@@ -107,6 +107,9 @@ export const get_user_conversations = [
             },
           ],
         },
+        include: {
+          owners: true,
+        },
       });
       res.status(200).json(conversation);
     } catch (err) {
