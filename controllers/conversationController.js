@@ -120,6 +120,7 @@ export const get_user_conversations = [
 
 export const get_conversation_with_messages = [
   passport.authenticate("jwt", { session: false }),
+  /*
   body("id")
     .notEmpty()
     .withMessage("conversation_id required")
@@ -127,23 +128,24 @@ export const get_conversation_with_messages = [
     .withMessage("Id must be a string")
     .trim()
     .escape(),
+  */
   asyncHandler(async (req, res, next) => {
-    if (!errors.isEmpty()) {
-      res.status(200).json(errors.array());
-    } else {
-      try {
-        const conversation = await prisma.conversation.findUnique({
-          where: {
-            id: req.body.conversation_id,
+    try {
+      const conversation = await prisma.conversation.findUnique({
+        where: {
+          id: req.params.conversation_id,
+        },
+        include: {
+          messages: {
+            orderBy: {
+              timeStamp: "asc",
+            },
           },
-          include: {
-            messages: true,
-          },
-        });
-        res.status(200).json(conversation);
-      } catch (err) {
-        return next(err);
-      }
+        },
+      });
+      res.status(200).json(conversation);
+    } catch (err) {
+      return next(err);
     }
   }),
 ];

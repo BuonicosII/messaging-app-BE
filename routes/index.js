@@ -35,7 +35,10 @@ router.post(
   create_conversation_one_to_many_post
 );
 router.get("/conversations/get_user_conversations", get_user_conversations);
-router.get("/conversations/get_conversation", get_conversation_with_messages);
+router.get(
+  "/conversations/get_conversation/:conversation_id",
+  get_conversation_with_messages
+);
 
 //messages routes
 router.post("/messages/create", create_message_post);
