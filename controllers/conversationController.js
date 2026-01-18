@@ -140,6 +140,9 @@ export const get_conversation_with_messages = [
             orderBy: {
               timeStamp: "asc",
             },
+            include: {
+              user: true,
+            },
           },
         },
       });
