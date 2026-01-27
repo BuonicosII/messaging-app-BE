@@ -95,22 +95,26 @@ export const get_user_conversations = [
   passport.authenticate("jwt", { session: false }),
   asyncHandler(async (req, res, next) => {
     try {
-      const conversation = await prisma.conversation.findMany({
-        where: {
-          AND: [
-            {
-              owners: {
-                some: {
-                  id: req.user.id,
-                },
-              },
-            },
-          ],
-        },
-        include: {
-          owners: true,
-        },
-      });
+      const conversation = await prisma.$queryRaw`
+        select 
+        q."conversationId", 
+        q."last_updated", 
+        q."name", 
+        u."username" 
+        from (
+          select distinct 
+          m."conversationId", 
+          MAX(m."timeStamp" ) over (partition by m."conversationId") as last_updated,
+          c."name" 
+          from "Message" m 
+          join "_ConversationToUser" ctu on ctu."A" = m."conversationId"
+          join "Conversation" c on c.id = ctu."A"
+          where ctu."B" = ${req.user.id}
+          order by MAX(m."timeStamp" ) over (partition by m."conversationId") DESC
+        ) q
+        left join "_ConversationToUser" ctu2 on ctu2."A" = q."conversationId" and q."name" is null and ctu2."B" <> ${req.user.id}
+        left join "User" u on u."id" = ctu2."B"
+        order by q.last_updated DESC`;
       res.status(200).json(conversation);
     } catch (err) {
       return next(err);
