@@ -19,6 +19,7 @@ model User {
   id            String         @id @default(uuid())
   username      String         @unique
   password      String
+  avatar        String?
   messages      Message[]
   conversations Conversation[]
 }
@@ -39,4 +40,5 @@ model Message {
   userId         String
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   conversationId String
+  attachement    String?
 }
