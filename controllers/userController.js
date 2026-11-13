@@ -75,3 +75,32 @@ export function login_post(req, res, next) {
     return;
   })(req, res, next);
 }
+
+export const update_username = [
+  passport.authenticate("jwt", { session: false }),
+  body("username")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Required username"),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(200).json(errors.array());
+    } else {
+      try {
+        const updatedUsername = await prisma.user.update({
+          where: {
+            id: req.user.id,
+          },
+          data: {
+            username: req.body.username,
+          },
+        });
+        res.status(200).json(updatedUsername);
+      } catch (err) {
+        next(err);
+      }
+    }
+  }),
+];

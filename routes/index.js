@@ -4,6 +4,7 @@ import {
   get_user,
   login_post,
   sign_up_post,
+  update_username,
 } from "../controllers/userController.js";
 import {
   create_conversation_one_to_one_post,
@@ -24,20 +25,21 @@ const router = Router();
 router.get("/users/user", get_user);
 router.post("/users/signup", sign_up_post);
 router.post("/users/login", login_post);
+router.put("/users/username", update_username);
 
 //conversation routes
 router.post(
   "/conversations/create_conversation_one_to_one_post",
-  create_conversation_one_to_one_post
+  create_conversation_one_to_one_post,
 );
 router.post(
   "/conversations/create_conversation_one_to_many_post",
-  create_conversation_one_to_many_post
+  create_conversation_one_to_many_post,
 );
 router.get("/conversations/get_user_conversations", get_user_conversations);
 router.get(
   "/conversations/get_conversation/:conversation_id",
-  get_conversation_with_messages
+  get_conversation_with_messages,
 );
 
 //messages routes
