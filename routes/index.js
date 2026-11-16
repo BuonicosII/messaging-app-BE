@@ -4,6 +4,7 @@ import {
   get_user,
   login_post,
   sign_up_post,
+  update_avatar,
   update_username,
 } from "../controllers/userController.js";
 import {
@@ -26,6 +27,7 @@ router.get("/users/user", get_user);
 router.post("/users/signup", sign_up_post);
 router.post("/users/login", login_post);
 router.put("/users/username", update_username);
+router.post("/users/avatar", update_avatar);
 
 //conversation routes
 router.post(

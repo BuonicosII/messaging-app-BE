@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
-import passport from "../passport-config.js";
+import passport from "../passport.config.js";
 import { PrismaClient } from "../generated/prisma/client.ts";
 const prisma = new PrismaClient();
 
